@@ -33,7 +33,7 @@ const HomePage = async () => {
                         <td><img src="${item.thumbnail}" alt="${item.title}" width="100"></td>
                         <td>${item.description}</td>
                         <td>
-                            <button class="btn btn-danger btn-delete" data-id=${item.id} >Xóa</button>
+                            <button class="btn btn-danger btn-delete" data-id=${item.id}>Xóa</button>
                             <button class="btn btn-warning btn-update" data-id=${item.id}>Sửa</button>
                         </td>
                     </tr>
@@ -62,6 +62,7 @@ const HomePage = async () => {
         }
       });
     }
+
     // Thêm sản phẩm
     const btnAdd = document.querySelector("#btn-add");
     btnAdd.addEventListener("click", async () => {
@@ -168,6 +169,17 @@ const HomePage = async () => {
               thumbnail: thumbnail,
               description: description,
             };
+
+            // Kiểm tra xem dữ liệu có thay đổi không
+            if (
+              title === data.title &&
+              price == data.price &&
+              thumbnail === data.thumbnail &&
+              description === data.description
+            ) {
+              alert("Bạn chưa thay đổi thông tin nào");
+              return;
+            }
 
             try {
               await api.put(`/products/${id}`, newData);
